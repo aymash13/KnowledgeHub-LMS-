@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Teaching Assistant Dashboard{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h2 class="mb-4">Welcome, {{ user.username }} 👋</h2>
+  <p class="lead">You are logged in as <strong>Teaching Assistant</strong>.</p>
+
+  <div class="mt-4">
+    <a href="#" class="btn btn-primary m-2">Resolve Student Queries</a>
+    <a href="#" class="btn btn-secondary m-2">Assigned Courses</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h2 class="mb-4">Welcome, {{ user.username }} 👋</h2>
+  <p class="lead">You are logged in as <strong>Administrator</strong>.</p>
+
+  <div class="mt-4">
+    <a href="#" class="btn btn-primary m-2">Manage Users</a>
+    <a href="#" class="btn btn-secondary m-2">View Reports</a>
+    <a href="#" class="btn btn-success m-2">Course Overview</a>
+  </div>
+</div>
+{% endblock %}
