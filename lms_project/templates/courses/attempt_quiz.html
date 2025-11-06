@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Attempt Quiz{% endblock %}
+{% block content %}
+<h2>{{ quiz.title }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {% for q in questions %}
+    <div class="mb-3 p-3 border rounded">
+      <p><strong>{{ forloop.counter }}. {{ q.text }}</strong></p>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q{{ q.id }}a" value="A">
+        <label class="form-check-label" for="q{{ q.id }}a">{{ q.option_a }}</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q{{ q.id }}b" value="B">
+        <label class="form-check-label" for="q{{ q.id }}b">{{ q.option_b }}</label>
+      </div>
+      {% if q.option_c %}
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q{{ q.id }}c" value="C">
+        <label class="form-check-label" for="q{{ q.id }}c">{{ q.option_c }}</label>
+      </div>
+      {% endif %}
+      {% if q.option_d %}
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q{{ q.id }}d" value="D">
+        <label class="form-check-label" for="q{{ q.id }}d">{{ q.option_d }}</label>
+      </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  <button class="btn btn-success">Submit Answers</button>
+</form>
+{% endblock %}

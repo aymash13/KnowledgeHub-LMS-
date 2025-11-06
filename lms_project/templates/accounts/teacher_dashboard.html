@@ -1,14 +1,59 @@
 {% extends 'base.html' %}
 {% block title %}Teacher Dashboard{% endblock %}
 {% block content %}
-<div class="text-center">
-  <h2 class="mb-4">Welcome, {{ user.username }} 👋</h2>
-  <p class="lead">You are logged in as <strong>Teacher</strong>.</p>
-
-  <div class="mt-4">
-    <a href="#" class="btn btn-primary m-2">Manage Courses</a>
-    <a href="#" class="btn btn-warning m-2">Student Queries</a>
-    <a href="#" class="btn btn-info m-2">Add Lesson</a>
+<div class="container py-4">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-primary">Welcome, {{ user.username }} 👋</h2>
+    <p class="lead text-muted">You are logged in as a <strong>Teacher</strong>.</p>
   </div>
+
+  <!-- Quick Actions -->
+  <div class="row justify-content-center g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Create New Course</h5>
+          <p class="card-text text-muted">Add a new course for students.</p>
+          <a href="{% url 'create_course' %}" class="btn btn-success w-100">Create</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Manage Courses</h5>
+          <p class="card-text text-muted">View and manage all your courses.</p>
+          <a href="{% url 'my_courses' %}" class="btn btn-primary w-100">Manage</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teacher's Courses -->
+  <h4 class="mb-3 text-primary">Your Courses</h4>
+  {% if courses %}
+    <div class="row g-4">
+      {% for course in courses %}
+        <div class="col-md-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ course.title }}</h5>
+              <p class="card-text text-muted">{{ course.description|truncatewords:20 }}</p>
+              <div class="mt-auto d-grid gap-2">
+                <a href="{% url 'course_detail' course.id %}" class="btn btn-primary btn-sm">View Course</a>
+                <a href="{% url 'create_lesson' course.id %}" class="btn btn-info btn-sm">Add Lesson</a>
+                <a href="{% url 'create_quiz' course.id %}" class="btn btn-warning btn-sm">Create Quiz</a>
+              </div>
+            </div>
+            <div class="card-footer text-muted small">
+              Created on {{ course.created_at|date:"M d, Y" }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted">You have not created any courses yet. Start by creating one above.</p>
+  {% endif %}
 </div>
 {% endblock %}

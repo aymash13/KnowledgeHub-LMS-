@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}My Courses (Teacher){% endblock %}
+{% block content %}
+<h2>Your Courses</h2>
+<a class="btn btn-primary mb-3" href="{% url 'create_course' %}">Create New Course</a>
+<ul>
+  {% for c in courses %}
+    <li>
+      <a href="{% url 'course_detail' c.id %}">{{ c.title }}</a>
+      — <a href="{% url 'create_lesson' c.id %}">Add Lesson</a> | <a href="{% url 'create_quiz' c.id %}">Add Quiz</a>
+    </li>
+  {% empty %}
+    <li>No courses yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

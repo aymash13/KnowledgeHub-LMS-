@@ -1,13 +1,52 @@
 {% extends 'base.html' %}
 {% block title %}Teaching Assistant Dashboard{% endblock %}
-{% block content %}
-<div class="text-center">
-  <h2 class="mb-4">Welcome, {{ user.username }} 👋</h2>
-  <p class="lead">You are logged in as <strong>Teaching Assistant</strong>.</p>
 
-  <div class="mt-4">
-    <a href="#" class="btn btn-primary m-2">Resolve Student Queries</a>
-    <a href="#" class="btn btn-secondary m-2">Assigned Courses</a>
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-primary">Welcome, {{ user.username }} 👋</h2>
+    <p class="lead text-muted">You are logged in as a <strong>Teaching Assistant (TA)</strong>.</p>
+  </div>
+
+  <div class="row justify-content-center g-4">
+    <!-- Resolve Student Queries -->
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Resolve Student Queries</h5>
+          <p class="card-text text-muted">
+            View and respond to queries raised by students for your assigned courses.
+          </p>
+          <a href="{% url 'query_list' %}" class="btn btn-primary w-100">Go to Queries</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assigned Courses -->
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Assigned Courses</h5>
+          <p class="card-text text-muted">
+            View the list of courses you are assigned to assist with.
+          </p>
+          <a href="{% url 'my_courses' %}" class="btn btn-success w-100">View Courses</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Support Section -->
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Support Resources</h5>
+          <p class="card-text text-muted">
+            Access guidelines or help documents for managing queries and course materials.
+          </p>
+          <a href="#" class="btn btn-info w-100 disabled">Coming Soon</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Lesson: {{ lesson.title }}{% endblock %}
+{% block content %}
+<h2>{{ lesson.title }}</h2>
+<p>Course: <a href="{% url 'course_detail' lesson.course.id %}">{{ lesson.course.title }}</a></p>
+<div class="mt-3">
+  {{ lesson.content|linebreaks }}
+</div>
+{% endblock %}

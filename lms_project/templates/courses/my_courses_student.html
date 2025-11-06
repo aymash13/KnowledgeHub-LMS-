@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}My Courses{% endblock %}
+{% block content %}
+<h2>My Enrolled Courses</h2>
+<ul>
+  {% for e in enrollments %}
+    <li>
+      <a href="{% url 'course_detail' e.course.id %}">{{ e.course.title }}</a>
+      — Enrolled on {{ e.enrolled_on|date:"M d, Y" }}
+    </li>
+  {% empty %}
+    <li>You have no courses yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

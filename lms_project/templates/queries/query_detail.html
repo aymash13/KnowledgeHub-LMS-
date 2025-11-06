@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ query.title }}</h2>
+<p><strong>Course:</strong> {{ query.course.title }}</p>
+<p><strong>Lesson:</strong> {{ query.lesson }}</p>
+<p><strong>Description:</strong> {{ query.description }}</p>
+<p><strong>Status:</strong> {{ query.status }}</p>
+
+{% if query.response %}
+<hr>
+<h4>Response from {{ query.assigned_to.user.username|default:"Teacher" }}:</h4>
+<pre>{{ query.response }}</pre>
+{% endif %}
+
+{# ---- Teacher / TA Response Form ---- #}
+{% if user.usertable.role == "TEACHER" or user.usertable.role == "TA" %}
+<hr>
+<h4>Update Response</h4>
+<form method="post">
+  {% csrf_token %}
+  <textarea name="response" rows="4" class="form-control" placeholder="Write your response here...">{{ query.response }}</textarea><br>
+  <select name="status" class="form-select">
+    <option value="Open" {% if query.status == "Open" %}selected{% endif %}>Open</option>
+    <option value="In Progress" {% if query.status == "In Progress" %}selected{% endif %}>In Progress</option>
+    <option value="Resolved" {% if query.status == "Resolved" %}selected{% endif %}>Resolved</option>
+  </select><br>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endif %}
+
+{# ---- Student Reply Section ---- #}
+{% if user.usertable.role == "STUDENT" %}
+<hr>
+<h4>Your Follow-up</h4>
+<form method="post">
+  {% csrf_token %}
+  <textarea name="student_reply" rows="3" class="form-control" placeholder="Write your reply or clarification..."></textarea><br>
+  <button type="submit" name="action" value="reply" class="btn btn-secondary">Reply</button>
+  <button type="submit" name="action" value="resolve" class="btn btn-success">Mark as Resolved</button>
+</form>
+{% endif %}
+{% endblock %}

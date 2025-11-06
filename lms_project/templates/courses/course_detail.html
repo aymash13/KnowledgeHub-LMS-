@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{ course.title }}{% endblock %}
+{% block content %}
+<h2>{{ course.title }}</h2>
+<p>By: {{ course.teacher.username }} — Created: {{ course.created_at|date:"M d, Y" }}</p>
+<p>{{ course.description }}</p>
+
+{% if user.is_authenticated %}
+  {% if user_enrolled %}
+    <a href="{% url 'my_courses' %}" class="btn btn-success">Go to My Courses</a>
+  {% elif user.usertable.role == 'STUDENT' %}
+    <a href="{% url 'enroll_course' course.id %}" class="btn btn-primary">Enroll</a>
+  {% endif %}
+{% endif %}
+
+<hr>
+<h4>Lessons</h4>
+<ul>
+  {% for lesson in course.lessons.all %}
+    <li>{{ lesson.order }}. {{ lesson.title }} — <a href="{% url 'lesson_view' course.id lesson.id %}">Open</a></li>
+  {% empty %}
+    <li>No lessons yet.</li>
+  {% endfor %}
+</ul>
+
+<h4>Quizzes</h4>
+<ul>
+  {% for quiz in course.quizzes.all %}
+    <li>{{ quiz.title }} — <a href="{% url 'attempt_quiz' quiz.id %}">Attempt</a></li>
+  {% empty %}
+    <li>No quizzes yet.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

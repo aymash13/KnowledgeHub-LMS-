@@ -3,19 +3,66 @@
 
 {% block content %}
 <div class="text-center py-5">
-    <h1 class="display-4 fw-bold text-primary">Welcome to KnowledgeHub</h1>
-    <p class="lead text-secondary">An Interactive Learning Management System for Teachers, Students, and Assistants.</p>
+    <h1 class="display-4 fw-bold text-primary mb-3">Welcome to KnowledgeHub</h1>
+    <p class="lead text-muted mb-4">
+        An interactive learning management system connecting <strong>Students</strong>, <strong>Teachers</strong>, and <strong>Teaching Assistants</strong>.
+    </p>
 
     {% if user.is_authenticated %}
-        <p class="mt-4">Welcome back, <strong>{{ user.username }}</strong>!</p>
-        <a href="{% if user.usertable.role == 'ADMIN' %}{% url 'admin_dashboard' %}
-                  {% elif user.usertable.role == 'TEACHER' %}{% url 'teacher_dashboard' %}
-                  {% elif user.usertable.role == 'TA' %}{% url 'ta_dashboard' %}
-                  {% else %}{% url 'student_dashboard' %}{% endif %}"
-           class="btn btn-primary">Go to Dashboard</a>
+        <div class="mt-4">
+            <h5 class="text-success mb-3">Welcome back, <strong>{{ user.username }}</strong>!</h5>
+            <a href="{% if user.usertable.role == 'ADMIN' %}
+                        {% url 'admin_dashboard' %}
+                     {% elif user.usertable.role == 'TEACHER' %}
+                        {% url 'teacher_dashboard' %}
+                     {% elif user.usertable.role == 'TA' %}
+                        {% url 'ta_dashboard' %}
+                     {% else %}
+                        {% url 'student_dashboard' %}
+                     {% endif %}"
+               class="btn btn-primary btn-lg shadow-sm px-4">
+                Go to Dashboard
+            </a>
+        </div>
     {% else %}
-        <a href="{% url 'register' %}" class="btn btn-warning me-2">Get Started</a>
-        <a href="{% url 'login' %}" class="btn btn-outline-light">Login</a>
+        <div class="mt-4">
+            <a href="{% url 'register' %}" class="btn btn-warning btn-lg me-3 px-4 shadow-sm">
+                Get registered
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg px-4 shadow-sm">
+                Login
+            </a>
+        </div>
     {% endif %}
 </div>
+
+<!-- Optional Section for Highlights -->
+<section class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-primary fw-bold">Learn</h5>
+                    <p class="card-text text-muted">Access structured courses, track progress, and master new skills at your own pace.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-success fw-bold">Teach</h5>
+                    <p class="card-text text-muted">Teachers can create courses, manage lessons, and interact directly with students.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-warning fw-bold">Collaborate</h5>
+                    <p class="card-text text-muted">Assistants and students can resolve queries and contribute to an engaging learning experience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

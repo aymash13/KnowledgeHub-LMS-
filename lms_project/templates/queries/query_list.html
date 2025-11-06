@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Queries</h2>
+<a href="{% url 'query_create' %}" class="btn btn-primary mb-3">New Query</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Course</th>
+      <th>Status</th>
+      <th>Created</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for q in queries %}
+      <tr>
+        <td>{{ q.title }}</td>
+        <td>{{ q.course.title }}</td>
+        <td>{{ q.status }}</td>
+        <td>{{ q.created|date:"M d, Y" }}</td>
+        <td><a href="{% url 'query_detail' q.id %}" class="btn btn-sm btn-info">View</a></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5" class="text-center">No queries found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

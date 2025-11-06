@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Add Questions{% endblock %}
+{% block content %}
+<h2>Quiz: {{ quiz.title }}</h2>
+<p><a href="{% url 'course_detail' quiz.course.id %}">&larr; Back to course</a></p>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-primary">Add Question</button>
+</form>
+
+<hr>
+<h4>Existing Questions</h4>
+<ul>
+  {% for q in questions %}
+    <li>{{ q.text }} (Correct: {{ q.correct_option }})</li>
+  {% empty %}
+    <li>No questions yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
